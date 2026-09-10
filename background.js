@@ -28,7 +28,8 @@ chrome.runtime.onInstalled.addListener(async () => {
             filler_settings: {
                 emailDomain: 'example.com',
                 presetPassword: 'P@ssw0rd123!',
-                usePresetPassword: false
+                usePresetPassword: false,
+                fillEmptyOnly: true
             }
         });
     }

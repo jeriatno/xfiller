@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const settingEmailDomain = document.getElementById('settingEmailDomain');
     const settingPresetPassword = document.getElementById('settingPresetPassword');
     const settingUsePresetPassword = document.getElementById('settingUsePresetPassword');
+    const settingFillEmptyOnly = document.getElementById('settingFillEmptyOnly');
 
     // Generator elements
     const genCards = document.querySelectorAll('.gen-card');
@@ -44,6 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (settingUsePresetPassword) {
             settingUsePresetPassword.checked = !!filler_settings.usePresetPassword;
         }
+        if (settingFillEmptyOnly) {
+            settingFillEmptyOnly.checked = filler_settings.fillEmptyOnly !== false;
+        }
         return filler_settings;
     }
 
@@ -54,7 +58,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const settings = {
             emailDomain: (settingEmailDomain.value || '').trim() || 'example.com',
             presetPassword: settingPresetPassword.value || 'P@ssw0rd123!',
-            usePresetPassword: settingUsePresetPassword.checked
+            usePresetPassword: settingUsePresetPassword.checked,
+            fillEmptyOnly: settingFillEmptyOnly ? settingFillEmptyOnly.checked : true
         };
         await chrome.storage.local.set({ filler_settings: settings });
 
@@ -106,8 +111,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!fieldsBadge) return;
         const res = await sendTabMessage('GET_STATS');
         if (res && typeof res.count === 'number') {
-            fieldsBadge.textContent = `${res.count} input${res.count === 1 ? '' : 's'}`;
-            fieldsBadge.style.color = res.count > 0 ? '#10b981' : '#94a3b8';
+            if (typeof res.emptyCount === 'number') {
+                fieldsBadge.textContent = `${res.emptyCount} empty of ${res.count}`;
+                fieldsBadge.style.color = res.emptyCount > 0 ? '#10b981' : '#94a3b8';
+            } else {
+                fieldsBadge.textContent = `${res.count} input${res.count === 1 ? '' : 's'}`;
+                fieldsBadge.style.color = res.count > 0 ? '#10b981' : '#94a3b8';
+            }
         } else {
             fieldsBadge.textContent = 'Page Ready';
         }

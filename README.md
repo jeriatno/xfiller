@@ -25,14 +25,18 @@
   - Date & Time: Valid date of birth (18-65 yo) or future dates, datetime-local, and time.
   - Textarea: Realistic multi-sentence reviews or feedback.
 
-### 2. 🤫 Silent & Clean Filling
+### 2. 🛡️ Safe Empty-Only Fill (Preserve Existing Input)
+- When filling all forms on a page (via popup, shortcut, or context menu), Filler automatically detects which fields already have values and skips them. Only blank/unfilled fields are populated, preventing accidental overwriting of data you have already entered!
+- **Smart Password Preservation**: If you already typed a custom password, an empty confirmation password field will automatically be filled with the exact password you typed.
+
+### 3. 🤫 Silent & Clean Filling
 - Fills forms directly and silently without injecting intrusive banners, toasts, or animations into the page DOM.
 
-### 3. ⚛️ Modern Reactive Framework Ready
+### 4. ⚛️ Modern Reactive Framework Ready
 - Fully compatible with **React 16+**, **Vue 3**, **Angular**, **Svelte**, and **Alpine.js**.
 - Employs native prototype setter overrides and dispatches native `input`, `change`, `keydown`, `keyup`, and `blur` events so reactive state managers immediately capture the new values.
 
-### 4. ⌨️ Multiple Convenient Triggers
+### 5. ⌨️ Multiple Convenient Triggers
 - **Keyboard Shortcut**: Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> (or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> on Mac) to fill all forms on the current page instantly.
 - **Right-Click Context Menu**:
   - `Filler: Fill All Inputs on Page`
@@ -41,7 +45,7 @@
   - `Filler: Clear Form Data`
 - **Popup Action**: Click the extension icon in the toolbar for one-click fill, active form fill, form clear, and instant clipboard mock data generation.
 
-### 5. 📋 Quick Generator & Clipboard
+### 6. 📋 Quick Generator & Clipboard
 - Open the extension popup to instantly copy single mock data values to your clipboard with 1 click (Full Name, Email, Phone, Strong Password, Valid Credit Card, Address, UUID, Company).
 
 ---
@@ -83,12 +87,3 @@ filler/
 5. The **Filler** extension will be loaded and active immediately with the custom logo!
 
 ---
-
-## 🧪 Testing the Extension
-
-1. Open `test-form.html` in Chrome:
-   ```
-   file:///Users/iwanjeriatno/Sites/JERI/public/extentions/filler/test-form.html
-   ```
-2. Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> or click **⚡ Fill All Forms** in the Filler popup.
-3. Observe all inputs, dropdowns, radios, checkboxes, passwords, and textareas get populated with realistic English dummy data!

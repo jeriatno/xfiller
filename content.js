@@ -134,6 +134,54 @@
     }
 
     /**
+     * Check if an element is currently empty / unfilled
+     */
+    function isFieldEmpty(el) {
+        if (!el) return false;
+        const tagName = el.tagName.toLowerCase();
+        const type = (el.type || 'text').toLowerCase();
+
+        // 1. Textarea & Contenteditable
+        if (tagName === 'textarea') {
+            return !el.value || el.value.trim() === '';
+        }
+        if (el.isContentEditable) {
+            return !el.innerText || el.innerText.trim() === '';
+        }
+
+        // 2. Select Dropdowns
+        if (tagName === 'select') {
+            if (el.selectedIndex === -1) return true;
+            const selectedOpt = el.options[el.selectedIndex];
+            if (!selectedOpt) return true;
+            const val = (selectedOpt.value || '').trim();
+            const txt = (selectedOpt.text || '').trim();
+            if (!val || /^(select|choose|pick|please|none|--|\s*$)/i.test(txt)) {
+                return true;
+            }
+            return false;
+        }
+
+        // 3. Radio Buttons: empty if no radio in group is checked
+        if (type === 'radio') {
+            const name = el.name;
+            if (!name) return !el.checked;
+            const scope = el.form || document;
+            const group = Array.from(scope.querySelectorAll(`input[type="radio"][name="${CSS.escape(name)}"]`));
+            const hasChecked = group.some(r => r.checked);
+            return !hasChecked;
+        }
+
+        // 4. Checkbox: unfilled if not checked
+        if (type === 'checkbox') {
+            return !el.checked;
+        }
+
+        // 5. Standard inputs (text, email, password, tel, number, date, time, url, search, etc.)
+        return !el.value || el.value.trim() === '';
+    }
+
+    /**
      * Gather surrounding semantic text cues (name, id, placeholder, label, aria)
      */
     function getElementSemanticContext(el) {
@@ -458,10 +506,11 @@
     }
 
     /**
-     * Fill all forms on the current page
+     * Fill all forms on the current page (only unfilled / empty fields)
      */
     function fillAllForms(settings = {}) {
         const elements = getFillableElements(document);
+        const onlyEmpty = settings.fillEmptyOnly !== false; // Default true as requested
         const context = {
             settings: settings,
             processedRadios: new Set(),
@@ -470,8 +519,22 @@
             lastLastName: null
         };
 
+        // Cache any existing password already entered by the user
+        elements.forEach(el => {
+            const type = (el.type || '').toLowerCase();
+            if (type === 'password' && el.value && !context.lastPassword) {
+                const textContext = getElementSemanticContext(el);
+                if (!/confirm|repeat|verify/i.test(textContext)) {
+                    context.lastPassword = el.value;
+                }
+            }
+        });
+
         let filledCount = 0;
         elements.forEach(el => {
+            if (onlyEmpty && !isFieldEmpty(el)) {
+                return; // Skip fields that already have content!
+            }
             if (fillSingleField(el, context)) {
                 filledCount++;
             }
@@ -481,7 +544,7 @@
     }
 
     /**
-     * Fill only the currently active/focused form
+     * Fill only the currently active/focused form (only unfilled / empty fields)
      */
     function fillCurrentForm(settings = {}) {
         let form = null;
@@ -497,6 +560,7 @@
         }
 
         const elements = getFillableElements(form);
+        const onlyEmpty = settings.fillEmptyOnly !== false;
         const context = {
             settings: settings,
             processedRadios: new Set(),
@@ -505,8 +569,22 @@
             lastLastName: null
         };
 
+        // Cache any existing password already entered by the user
+        elements.forEach(el => {
+            const type = (el.type || '').toLowerCase();
+            if (type === 'password' && el.value && !context.lastPassword) {
+                const textContext = getElementSemanticContext(el);
+                if (!/confirm|repeat|verify/i.test(textContext)) {
+                    context.lastPassword = el.value;
+                }
+            }
+        });
+
         let filledCount = 0;
         elements.forEach(el => {
+            if (onlyEmpty && !isFieldEmpty(el)) {
+                return; // Skip fields that already have content!
+            }
             if (fillSingleField(el, context)) {
                 filledCount++;
             }
@@ -595,8 +673,9 @@
         }
 
         if (action === 'GET_STATS') {
-            const count = getFillableElements(document).length;
-            sendResponse({ count: count });
+            const allElements = getFillableElements(document);
+            const emptyCount = allElements.filter(el => isFieldEmpty(el)).length;
+            sendResponse({ count: allElements.length, emptyCount: emptyCount });
             return true;
         }
 
