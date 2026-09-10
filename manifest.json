@@ -1,0 +1,55 @@
+{
+    "manifest_version": 3,
+    "name": "Filler",
+    "version": "1.0.0",
+    "description": "Universal smart form filler and realistic dummy data generator for developers and QA testers.",
+    "icons": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "permissions": [
+        "activeTab",
+        "storage",
+        "contextMenus",
+        "scripting"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Filler - Form Filler",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "32": "icons/icon32.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "filler-engine.js",
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "commands": {
+        "fill_all_forms": {
+            "suggested_key": {
+                "default": "Alt+Shift+F",
+                "mac": "Alt+Shift+F"
+            },
+            "description": "Fill all forms on current page"
+        }
+    }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filler - Form Filler</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <img src="icons/icon48.png" class="logo-img" alt="Filler Logo" width="28" height="28">
+                <div class="brand-text">
+                    <h1>Filler</h1>
+                    <span class="tagline">Smart Form Filler</span>
+                </div>
+            </div>
+            <div class="header-status">
+                <span id="fieldsBadge" class="badge">Checking...</span>
+            </div>
+        </header>
+
+        <!-- Main Actions -->
+        <div class="hero-actions">
+            <button id="btnFillAll" class="btn btn-primary btn-lg">
+                <span class="icon">⚡</span>
+                <span class="text">Fill All Forms</span>
+                <span class="shortcut">Alt+Shift+F</span>
+            </button>
+            <div class="btn-group-row">
+                <button id="btnFillCurrent" class="btn btn-secondary">
+                    <span>🎯 Fill Active Form</span>
+                </button>
+                <button id="btnClearAll" class="btn btn-outline-danger">
+                    <span>🗑️ Clear</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="tab-generator">📋 Generator</button>
+            <button class="tab-btn" data-tab="tab-settings">⚙️ Settings</button>
+            <button class="tab-btn" data-tab="tab-shortcuts">⌨️ Help</button>
+        </nav>
+
+        <!-- Tab 1: Clipboard Generator -->
+        <section id="tab-generator" class="tab-content active">
+            <div class="section-title">Click to copy instant mock data</div>
+            <div class="generator-grid">
+                <div class="gen-card" data-gen="fullName">
+                    <div class="gen-info">
+                        <span class="gen-label">Full Name</span>
+                        <span class="gen-val" id="valFullName">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+
+                <div class="gen-card" data-gen="email">
+                    <div class="gen-info">
+                        <span class="gen-label">Email</span>
+                        <span class="gen-val" id="valEmail">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+
+                <div class="gen-card" data-gen="phone">
+                    <div class="gen-info">
+                        <span class="gen-label">Phone</span>
+                        <span class="gen-val" id="valPhone">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+
+                <div class="gen-card" data-gen="password">
+                    <div class="gen-info">
+                        <span class="gen-label">Strong Password</span>
+                        <span class="gen-val monospace" id="valPassword">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+
+                <div class="gen-card" data-gen="creditCard">
+                    <div class="gen-info">
+                        <span class="gen-label">Test Visa (Luhn Valid)</span>
+                        <span class="gen-val monospace" id="valCreditCard">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+
+                <div class="gen-card" data-gen="address">
+                    <div class="gen-info">
+                        <span class="gen-label">Address</span>
+                        <span class="gen-val" id="valAddress">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+
+                <div class="gen-card" data-gen="uuid">
+                    <div class="gen-info">
+                        <span class="gen-label">UUID v4</span>
+                        <span class="gen-val monospace" id="valUuid">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+
+                <div class="gen-card" data-gen="company">
+                    <div class="gen-info">
+                        <span class="gen-label">Company</span>
+                        <span class="gen-val" id="valCompany">Loading...</span>
+                    </div>
+                    <button class="copy-btn" title="Copy">📋</button>
+                </div>
+            </div>
+            <button id="btnRefreshData" class="btn btn-outline btn-block mt-2">🔄 Refresh Mock Values</button>
+        </section>
+
+        <!-- Tab 2: Settings -->
+        <section id="tab-settings" class="tab-content">
+            <div class="setting-group">
+                <label class="setting-label" for="settingEmailDomain">Custom Email Domain</label>
+                <input type="text" id="settingEmailDomain" class="form-control" placeholder="e.g. example.com or test.dev">
+                <span class="setting-hint">Generated emails will end with @this-domain.</span>
+            </div>
+
+            <div class="setting-group">
+                <div class="switch-row">
+                    <label class="setting-label" for="settingUsePresetPassword">Use Fixed Password for All Forms</label>
+                    <input type="checkbox" id="settingUsePresetPassword" class="switch-checkbox">
+                </div>
+                <input type="text" id="settingPresetPassword" class="form-control mt-1" placeholder="P@ssw0rd123!">
+                <span class="setting-hint">When enabled, password fields are filled with this fixed string instead of a random password.</span>
+            </div>
+
+            <button id="btnSaveSettings" class="btn btn-primary btn-block mt-2">💾 Save Settings</button>
+            <div id="saveToast" class="save-msg">Settings saved!</div>
+        </section>
+
+        <!-- Tab 3: Help & Shortcuts -->
+        <section id="tab-shortcuts" class="tab-content">
+            <div class="shortcut-list">
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Fill all forms on page</span>
+                    <kbd>Alt + Shift + F</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Right-click on page</span>
+                    <span class="shortcut-context">Context Menu</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Right-click on field</span>
+                    <span class="shortcut-context">"Fill Only This Field"</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Supported Inputs:</strong> Names, Emails, Passwords & Confirmations, Phones, Addresses, Credit Cards, Checkboxes, Radios, Dropdowns, Datepickers, and Textareas.</p>
+                <p><strong>Framework Ready:</strong> Automatically triggers native events for React, Vue, Angular, and Svelte.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <span>Filler v1.0.0</span>
+            <span class="footer-tip">Ready to test</span>
+        </footer>
+    </div>
+
+    <script src="filler-engine.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

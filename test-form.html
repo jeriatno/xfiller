@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filler Extension - Test Form</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --border: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+        h1 { font-size: 24px; margin-bottom: 6px; }
+        p.subtitle { color: var(--text-muted); font-size: 14px; }
+        .tip-banner {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 13.5px;
+            color: #93c5fd;
+        }
+        .form-card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        input[type="url"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 9px 12px;
+            background: #0b0f19;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+        }
+        .options-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-top: 6px;
+        }
+        .radio-label, .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: normal;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .btn-submit {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-submit:hover {
+            filter: brightness(1.1);
+        }
+        .output-box {
+            margin-top: 16px;
+            background: #000;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #a7f3d0;
+            display: none;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Filler Test Form</h1>
+            <p class="subtitle">Use this page to test the Filler Chrome Extension with shortcut <strong>Alt + Shift + F</strong> or via extension popup.</p>
+        </header>
+
+        <div class="tip-banner">
+            💡 <strong>Shortcut:</strong> Press <code>Alt + Shift + F</code> (or <code>Cmd + Shift + F</code> on Mac) or right-click anywhere to fill all fields!
+        </div>
+
+        <form id="testForm" onsubmit="handleFormSubmit(event)">
+            <!-- 1. Personal Info -->
+            <div class="form-card">
+                <div class="section-title">1. Personal Information</div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Doe">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john.doe@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone / Mobile</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="birth_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company / Employer</label>
+                        <input type="text" id="company" name="company" placeholder="Acme Inc">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Account & Security -->
+            <div class="form-card">
+                <div class="section-title">2. Account Credentials (Password Matching)</div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="johndoe88">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Shipping & Billing Address -->
+            <div class="form-card">
+                <div class="section-title">3. Address & Location</div>
+                <div class="form-group">
+                    <label for="street">Street Address</label>
+                    <input type="text" id="street" name="address" placeholder="123 Main St">
+                </div>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" placeholder="New York">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" placeholder="NY">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipcode">Zip Code</label>
+                        <input type="text" id="zipcode" name="zip_code" placeholder="10001">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Payment & Numbers -->
+            <div class="form-card">
+                <div class="section-title">4. Payment Details (Test Card Luhn-Valid)</div>
+                <div class="form-group">
+                    <label for="card_number">Card Number</label>
+                    <input type="text" id="card_number" name="card_number" placeholder="4532 .... .... ....">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="exp_date">Expiration Date</label>
+                        <input type="text" id="exp_date" name="exp_date" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" placeholder="123">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Options, Dropdowns, Checkboxes -->
+            <div class="form-card">
+                <div class="section-title">5. Dropdown, Radio & Checkboxes</div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country" name="country">
+                            <option value="">-- Select a Country --</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="AU">Australia</option>
+                            <option value="DE">Germany</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subscription Plan</label>
+                        <div class="options-row">
+                            <label class="radio-label"><input type="radio" name="plan" value="starter"> Starter</label>
+                            <label class="radio-label"><input type="radio" name="plan" value="pro"> Pro</label>
+                            <label class="radio-label"><input type="radio" name="plan" value="enterprise"> Enterprise</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Feedback / Message</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Enter your comments..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" name="terms"> I agree to the Terms and Conditions
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Form Test</button>
+            <div id="output" class="output-box"></div>
+        </form>
+    </div>
+
+    <script>
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            const out = document.getElementById('output');
+            out.style.display = 'block';
+            out.textContent = 'Form Data Captured Successfully:\n' + JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
