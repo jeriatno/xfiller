@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Smart Form Filler - Realistic Dummy Data Generator",
+    "name": "Smart Form Filler",
     "short_name": "Smart Filler",
     "version": "1.0.0",
     "description": "Universal smart form filler and realistic dummy data generator for web developers, QA engineers, and testers.",

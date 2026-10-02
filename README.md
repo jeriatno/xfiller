@@ -39,10 +39,10 @@
 ### 5. ⌨️ Multiple Convenient Triggers
 - **Keyboard Shortcut**: Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> (or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> on Mac) to fill all forms on the current page instantly.
 - **Right-Click Context Menu**:
-  - `Filler: Fill All Inputs on Page`
-  - `Filler: Fill Current Form`
-  - `Filler: Fill Only This Field`
-  - `Filler: Clear Form Data`
+  - `Fill All Inputs`
+  - `Fill Current Form`
+  - `Fill This Field`
+  - `Clear Form Data`
 - **Popup Action**: Click the extension icon in the toolbar for one-click fill, active form fill, form clear, and instant clipboard mock data generation.
 
 ### 6. 📋 Quick Generator & Clipboard

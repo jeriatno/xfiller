@@ -1,9 +1,9 @@
-# Smart Form Filler - Realistic Dummy Data Generator
+# Smart Form Filler
 ### Chrome Web Store Publishing Guide & SEO Metadata
 
 ## 📋 Store Listing Information
 
-- **Extension Name**: Smart Form Filler - Realistic Dummy Data Generator
+- **Extension Name**: Smart Form Filler
 - **Short Description (< 132 chars)**: Universal smart form filler and realistic dummy data generator for web developers, QA engineers, and testers.
 - **Category**: Developer Tools
 - **Target Keywords**: form filler, auto form filler, dummy data generator, fake filler, test data, fake data generator, developer tools, qa testing tools, form autocomplete

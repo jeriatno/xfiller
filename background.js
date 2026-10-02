@@ -5,11 +5,11 @@
 
 // Context menu item definitions
 const CONTEXT_MENUS = [
-    { id: 'filler_fill_all', title: 'Filler: Fill All Inputs on Page', contexts: ['all'] },
-    { id: 'filler_fill_form', title: 'Filler: Fill Current Form', contexts: ['editable'] },
-    { id: 'filler_fill_field', title: 'Filler: Fill Only This Field', contexts: ['editable'] },
+    { id: 'filler_fill_all', title: 'Fill All Inputs', contexts: ['all'] },
+    { id: 'filler_fill_form', title: 'Fill Current Form', contexts: ['editable'] },
+    { id: 'filler_fill_field', title: 'Fill This Field', contexts: ['editable'] },
     { id: 'filler_separator', type: 'separator', contexts: ['all'] },
-    { id: 'filler_clear_form', title: 'Filler: Clear Form Data', contexts: ['all'] }
+    { id: 'filler_clear_form', title: 'Clear Form Data', contexts: ['all'] }
 ];
 
 // Setup context menus on installation
